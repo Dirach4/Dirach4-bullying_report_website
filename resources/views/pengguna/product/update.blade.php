@@ -11,7 +11,7 @@
                 <div class="p-6 text-gray-900">
                     <h1 class="mb-0">Edit Product</h1>
                     <hr />
-                    <form action="{{ route('admin/products/update', $products->id) }}" method="POST">
+                    <form action="{{ route('pengguna/products/update', $products->id) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="row">

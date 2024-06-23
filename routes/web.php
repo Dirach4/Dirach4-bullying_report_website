@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HomePenggunaController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductPenggunaController;
  
 Route::get('/', function () {
     return view('welcome');
@@ -36,12 +37,12 @@ Route::middleware(['auth', 'pengguna'])->group(function () {
  
     Route::get('pengguna/dashboard', [HomePenggunaController::class, 'index'])->name('pengguna/dashboard');
  
-    Route::get('/pengguna/products', [ProductController::class, 'index'])->name('pengguna/products');
-    Route::get('/pengguna/products/create', [ProductController::class, 'create'])->name('pengguna/products/create');
-    Route::post('/pengguna/products/save', [ProductController::class, 'save'])->name('pengguna/products/save');
-    Route::get('/pengguna/products/edit/{id}', [ProductController::class, 'edit'])->name('pengguna/products/edit');
-    Route::put('/pengguna/products/edit/{id}', [ProductController::class, 'update'])->name('pengguna/products/update');
-    Route::get('/pengguna/products/delete/{id}', [ProductController::class, 'delete'])->name('pengguna/products/delete');
+    Route::get('/pengguna/products', [ProductPenggunaController::class, 'index'])->name('pengguna/products');
+    Route::get('/pengguna/products/create', [ProductPenggunaController::class, 'create'])->name('pengguna/products/create');
+    Route::post('/pengguna/products/save', [ProductPenggunaController::class, 'save'])->name('pengguna/products/save');
+    Route::get('/pengguna/products/edit/{id}', [ProductPenggunaController::class, 'edit'])->name('pengguna/products/edit');
+    Route::put('/pengguna/products/edit/{id}', [ProductPenggunaController::class, 'update'])->name('pengguna/products/update');
+    Route::get('/pengguna/products/delete/{id}', [ProductPenggunaController::class, 'delete'])->name('pengguna/products/delete');
 });
  
 require __DIR__.'/auth.php';

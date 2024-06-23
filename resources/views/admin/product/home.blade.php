@@ -39,8 +39,6 @@
                                 <td class="align-middle">{{ $product->price }}</td>
                                 <td class="align-middle">
                                 <img src="{{ asset('images/' . $product->image) }}" alt="{{ $product->title }}" style="max-width: 100px;">
-
-                                    <p>{{ asset('storage/' . $product->image) }}</p> <!-- Tambahkan ini untuk melihat jalur file -->
                                 </td>
                                 <td class="align-middle">
                                     <div class="btn-group" role="group" aria-label="Basic example">

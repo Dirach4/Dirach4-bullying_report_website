@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Admin Product') }}
+            {{ __('pengguna Product') }}
         </h2>
     </x-slot>
  
@@ -11,7 +11,7 @@
                 <div class="p-6 text-gray-900">
                     <div class="d-flex align-items-center justify-content-between">
                         <h1 class="mb-0">List Product</h1>
-                        <a href="{{ route('admin/products/create') }}" class="btn btn-primary">Add Product</a>
+                        <a href="{{ route('pengguna/products/create') }}" class="btn btn-primary">Add Product</a>
                     </div>
                     <hr />
                     @if(Session::has('success'))
@@ -44,8 +44,8 @@
                                 </td>
                                 <td class="align-middle">
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <a href="{{ route('admin/products/edit', ['id'=>$product->id]) }}" type="button" class="btn btn-secondary">Edit</a>
-                                        <a href="{{ route('admin/products/delete', ['id'=>$product->id]) }}" type="button" class="btn btn-danger">Delete</a>
+                                        <a href="{{ route('pengguna/products/edit', ['id'=>$product->id]) }}" type="button" class="btn btn-secondary">Edit</a>
+                                        <a href="{{ route('pengguna/products/delete', ['id'=>$product->id]) }}" type="button" class="btn btn-danger">Delete</a>
                                     </div>
                                 </td>
                             </tr>
