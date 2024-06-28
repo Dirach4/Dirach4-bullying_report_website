@@ -13,10 +13,12 @@ use App\Http\Controllers\Api\Auth\ApiPasswordResetLinkController;
 use App\Http\Controllers\Api\Auth\ApiRegisteredUserController;
 use App\Http\Controllers\Api\Auth\ApiVerifyEmailController;
 
+use App\Http\Controllers\Api\ApiAuthController;
 
-Route::get('/user', function (Request $request) {
+
+/*Route::get('/user', function (Request $request) {
     return $request->user();
-})->middleware('auth:sanctum');
+})->middleware('auth:sanctum');*/
 
 Route::post('/login', [ApiAuthenticatedSessionController::class, 'store']);
 Route::post('/logout', [ApiAuthenticatedSessionController::class, 'destroy'])->middleware('auth:sanctum');
@@ -38,3 +40,14 @@ Route::get('/product/{id}/edit', [ProductApiController::class, 'edit']);
 Route::put('/product/{id}', [ProductApiController::class, 'update']);
 Route::delete('/product/{id}', [ProductApiController::class, 'delete']);
 
+// Register
+
+Route::post("register", [ApiAuthController::class, "register"]);
+Route::post("login", [ApiAuthController::class, "login"]);
+
+Route::group([
+    "middleware" => ["auth:sanctum"]
+], function () {
+    Route::get("profile", [ApiAuthController::class, "profile"]);
+    Route::post("logout", [ApiAuthController::class, "logout"]);
+});
