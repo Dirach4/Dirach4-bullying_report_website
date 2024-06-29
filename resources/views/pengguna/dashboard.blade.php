@@ -11,6 +11,7 @@
                 <div class="p-6 text-gray-900">
                     {{ __("Selamat datang di app kumala") }}
                     <p><a href="products" class="btn btn-primary">Products</a></p>
+                    <p><a href="reports" class="btn btn-primary">Report</a></p>
                 </div>
             </div>
         </div>
