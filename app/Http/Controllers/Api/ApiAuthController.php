@@ -19,6 +19,10 @@ class ApiAuthController extends Controller
                 'name' => 'required',
                 'email' => 'required|email|unique:users,email',
                 'password' => 'required',
+                'jurusan' => 'required',
+                'prodi' => 'required',
+                'kelas' => 'required',
+                'no_hp' => 'required',
             ]);
 
             if ($validateUser->fails()) {
@@ -33,6 +37,10 @@ class ApiAuthController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password), // Hashing the password
+                'jurusan' => $request->jurusan,
+                'prodi' => $request->prodi,
+                'kelas' => $request->kelas,
+                'no_hp' => $request->no_hp,
             ]);
 
             return response()->json([
