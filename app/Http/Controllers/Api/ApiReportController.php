@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Report;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
+use Exception;
 
 class ApiReportController extends Controller
 {
@@ -36,9 +38,11 @@ class ApiReportController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'user_id' => ['required', 'exists:users,id'],
             'lpr_sebagai' => 'required|string|max:255',
             'tgl_kejadian' => 'required|date',
             'kronologi' => 'required|string',
+            'area_kejadian'=>'required|string',
             'bentuk_kekerasan' => 'required|string',
             'informasi_pelaku' => 'required|string',
             'informasi_korban' => 'required|string',
@@ -47,8 +51,8 @@ class ApiReportController extends Controller
 
         try {
             $data = $request->only([
-                'lpr_sebagai', 'tgl_kejadian',
-                'kronologi', 'bentuk_kekerasan', 'informasi_pelaku', 'informasi_korban'
+                'user_id','lpr_sebagai', 'tgl_kejadian',
+                'kronologi','area_kejadian', 'bentuk_kekerasan', 'informasi_pelaku', 'informasi_korban'
             ]);
 
             if ($request->hasFile('bukti')) {
@@ -62,9 +66,12 @@ class ApiReportController extends Controller
             return response()->json([
                 'message' => "Report successfully created."
             ], 200);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
+            // Menangkap kesalahan dan mencatatnya ke log
+            Log::error('Error creating report: ' . $e->getMessage());
+    
             return response()->json([
-                'message' => "Something went wrong WITH LAPORAN!"
+                'message' => "Something went wrong while creating report. Please try again later."
             ], 500);
         }
     }
@@ -74,13 +81,15 @@ class ApiReportController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
+            'user_id' => ['required', 'exists:users,id'],
             'lpr_sebagai' => 'required|string|max:255',
             'tgl_kejadian' => 'required|date',
             'kronologi' => 'required|string',
+            'area_kejadian'=>'required|string',
             'bentuk_kekerasan' => 'required|string',
             'informasi_pelaku' => 'required|string',
             'informasi_korban' => 'required|string',
-            'bukti' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'bukti' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         try {
@@ -92,8 +101,8 @@ class ApiReportController extends Controller
             }
 
             $data = $request->only([
-                'lpr_sebagai', 'tgl_kejadian',
-                'kronologi', 'bentuk_kekerasan', 'informasi_pelaku', 'informasi_korban'
+                'user_id','lpr_sebagai', 'tgl_kejadian',
+                'kronologi','area_kejadian', 'bentuk_kekerasan', 'informasi_pelaku', 'informasi_korban'
             ]);
 
             if ($request->hasFile('bukti')) {

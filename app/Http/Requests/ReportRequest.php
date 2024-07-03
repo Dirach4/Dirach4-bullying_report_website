@@ -22,68 +22,51 @@ class ReportRequest extends FormRequest
     {
         if (request()->isMethod('post')) {
             return [
-                'nama_pelapor' => 'required|string|max:255',
-                'jurusan' => 'required|string|max:255',
-                'program_studi' => 'required|string|max:255',
-                'kelas' => 'required|string|max:255',
-                'no_hp' => 'required|string|max:20',
-                'lpr_sebagai' => 'required|string|max:255',
-                'tgl_kejadian' => 'required|date',
-                'kronologi' => 'required|string',
-                'bentuk_kekerasan' => 'required|string',
-                'informasi_pelaku' => 'required|string',
-                'informasi_korban' => 'required|string',
-                'bukti' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'user_id' => ['required', 'exists:users,id'],
+            'lpr_sebagai' => 'required|string|max:255',
+            'tgl_kejadian' => 'required|date',
+            'kronologi' => 'required|string',
+            'area_kejadian'=>'required|string',
+            'bentuk_kekerasan' => 'required|string',
+            'informasi_pelaku' => 'required|string',
+            'informasi_korban' => 'required|string',
+            'bukti' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             ];
         } else {
             return [
-                'nama_pelapor' => 'required|string|max:255',
-                'jurusan' => 'required|string|max:255',
-                'program_studi' => 'required|string|max:255',
-                'kelas' => 'required|string|max:255',
-                'no_hp' => 'required|string|max:20',
-                'lpr_sebagai' => 'required|string|max:255',
-                'tgl_kejadian' => 'required|date',
-                'kronologi' => 'required|string',
-                'bentuk_kekerasan' => 'required|string',
-                'informasi_pelaku' => 'required|string',
-                'informasi_korban' => 'required|string',
-                'bukti' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'user_id' => ['required', 'exists:users,id'],
+            'lpr_sebagai' => 'required|string|max:255',
+            'tgl_kejadian' => 'required|date',
+            'kronologi' => 'required|string',
+            'area_kejadian'=>'required|string',
+            'bentuk_kekerasan' => 'required|string',
+            'informasi_pelaku' => 'required|string',
+            'informasi_korban' => 'required|string',
+            'bukti' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             ];
         }
     }
 
     public function messages()
-    {
-        if (request()->isMethod('post')) {
-            return [
-                'nama_pelapor.required' => 'Nama pelapor is required!',
-                'jurusan.required' => 'Jurusan is required!',
-                'program_studi.required' => 'Program studi is required!',
-                'kelas.required' => 'Kelas is required!',
-                'no_hp.required' => 'No HP is required!',
-                'lpr_sebagai.required' => 'Laporan sebagai is required!',
-                'tgl_kejadian.required' => 'Tanggal kejadian is required!',
-                'kronologi.required' => 'Kronologi is required!',
-                'bentuk_kekerasan.required' => 'Bentuk kekerasan is required!',
-                'informasi_pelaku.required' => 'Informasi pelaku is required!',
-                'informasi_korban.required' => 'Informasi korban is required!',
-                'bukti.required' => 'Bukti is required!',
-            ];
-        } else {
-            return [
-                'nama_pelapor.required' => 'Nama pelapor is required!',
-                'jurusan.required' => 'Jurusan is required!',
-                'program_studi.required' => 'Program studi is required!',
-                'kelas.required' => 'Kelas is required!',
-                'no_hp.required' => 'No HP is required!',
-                'lpr_sebagai.required' => 'Laporan sebagai is required!',
-                'tgl_kejadian.required' => 'Tanggal kejadian is required!',
-                'kronologi.required' => 'Kronologi is required!',
-                'bentuk_kekerasan.required' => 'Bentuk kekerasan is required!',
-                'informasi_pelaku.required' => 'Informasi pelaku is required!',
-                'informasi_korban.required' => 'Informasi korban is required!',
-            ];
-        }
-    }
+{
+    return [
+        'user_id.required' => 'User ID is required!',
+        'user_id.exists' => 'User ID does not exist in the database!',
+        'lpr_sebagai.required' => 'Report type is required!',
+        'lpr_sebagai.string' => 'Report type must be a string!',
+        'lpr_sebagai.max' => 'Report type may not be greater than :max characters!',
+        'tgl_kejadian.required' => 'Incident date is required!',
+        'tgl_kejadian.date' => 'Incident date must be a valid date!',
+        'kronologi.required' => 'Chronology is required!',
+        'area_kejadian.required' => 'Incident area is required!',
+        'bentuk_kekerasan.required' => 'Form of violence is required!',
+        'informasi_pelaku.required' => 'Perpetrator information is required!',
+        'informasi_korban.required' => 'Victim information is required!',
+        'bukti.required' => 'Evidence is required!',
+        'bukti.image' => 'Evidence must be an image file!',
+        'bukti.mimes' => 'Evidence must be of type: jpeg, png, jpg, gif!',
+        'bukti.max' => 'Evidence may not be larger than :max kilobytes!',
+    ];
+}
+
 }

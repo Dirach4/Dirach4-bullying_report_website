@@ -10,6 +10,7 @@ class Report extends Model
     use HasFactory;
     protected $table = 'report';
     protected $fillable = [
+        'user_id',
         'lpr_sebagai',
         'tgl_kejadian',
         'kronologi',
@@ -21,6 +22,6 @@ class Report extends Model
     ];
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
