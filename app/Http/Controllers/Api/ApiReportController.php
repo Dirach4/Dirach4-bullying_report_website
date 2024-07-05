@@ -36,99 +36,99 @@ class ApiReportController extends Controller
     
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'user_id' => ['required', 'exists:users,id'],
-            'lpr_sebagai' => 'required|string|max:255',
-            'tgl_kejadian' => 'required|date',
-            'kronologi' => 'required|string',
-            'area_kejadian'=>'required|string',
-            'bentuk_kekerasan' => 'required|string',
-            'informasi_pelaku' => 'required|string',
-            'informasi_korban' => 'required|string',
-            'bukti' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+{
+    $request->validate([
+        'user_id' => ['required', 'exists:users,id'],
+        'lpr_sebagai' => 'required|string|max:255',
+        'tgl_kejadian' => 'required|date',
+        'kronologi' => 'required|string',
+        'area_kejadian' => 'required|string',
+        'bentuk_kekerasan' => 'required|string',
+        'informasi_pelaku' => 'required|string',
+        'informasi_korban' => 'required|string',
+        'bukti' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
+
+    try {
+        $data = $request->only([
+            'user_id', 'lpr_sebagai', 'tgl_kejadian',
+            'kronologi', 'area_kejadian', 'bentuk_kekerasan', 'informasi_pelaku', 'informasi_korban'
         ]);
 
-        try {
-            $data = $request->only([
-                'user_id','lpr_sebagai', 'tgl_kejadian',
-                'kronologi','area_kejadian', 'bentuk_kekerasan', 'informasi_pelaku', 'informasi_korban'
-            ]);
+        if ($request->hasFile('bukti')) {
+            $imageName = $request->file('bukti')->getClientOriginalName();
+            $request->file('bukti')->storeAs('public/bukti', $imageName);
 
-            if ($request->hasFile('bukti')) {
-                $imageName = Str::random(32) . "." . $request->file('bukti')->getClientOriginalExtension();
-                Storage::disk('public')->put($imageName, file_get_contents($request->file('bukti')));
-                $data['bukti'] = $imageName;
-            }
-
-            Report::create($data);
-
-            return response()->json([
-                'message' => "Report successfully created."
-            ], 200);
-        } catch (Exception $e) {
-            // Menangkap kesalahan dan mencatatnya ke log
-            Log::error('Error creating report: ' . $e->getMessage());
-    
-            return response()->json([
-                'message' => "Something went wrong while creating report. Please try again later."
-            ], 500);
+            $data['bukti'] = $imageName;
         }
+
+        Report::create($data);
+
+        return response()->json([
+            'message' => "Report successfully created."
+        ], 200);
+    } catch (Exception $e) {
+        Log::error('Error creating report: ' . $e->getMessage());
+
+        return response()->json([
+            'message' => "Something went wrong while creating report. Please try again later."
+        ], 500);
     }
+}
+
 
     
 
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'user_id' => ['required', 'exists:users,id'],
-            'lpr_sebagai' => 'required|string|max:255',
-            'tgl_kejadian' => 'required|date',
-            'kronologi' => 'required|string',
-            'area_kejadian'=>'required|string',
-            'bentuk_kekerasan' => 'required|string',
-            'informasi_pelaku' => 'required|string',
-            'informasi_korban' => 'required|string',
-            'bukti' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+public function update(Request $request, $id)
+{
+    $request->validate([
+        'user_id' => ['required', 'exists:users,id'],
+        'lpr_sebagai' => 'required|string|max:255',
+        'tgl_kejadian' => 'required|date',
+        'kronologi' => 'required|string',
+        'area_kejadian' => 'required|string',
+        'bentuk_kekerasan' => 'required|string',
+        'informasi_pelaku' => 'required|string',
+        'informasi_korban' => 'required|string',
+        'bukti' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
+
+    try {
+        $report = Report::find($id);
+        if (!$report) {
+            return response()->json([
+                'message' => 'Report Not Found.'
+            ], 404);
+        }
+
+        $data = $request->only([
+            'user_id', 'lpr_sebagai', 'tgl_kejadian',
+            'kronologi', 'area_kejadian', 'bentuk_kekerasan', 'informasi_pelaku', 'informasi_korban'
         ]);
 
-        try {
-            $report = Report::find($id);
-            if (!$report) {
-                return response()->json([
-                    'message' => 'Report Not Found.'
-                ], 404);
+        if ($request->hasFile('bukti')) {
+            $imageName = $request->file('bukti')->getClientOriginalName();
+            $request->file('bukti')->storeAs('public', $imageName); // Simpan file dengan nama asli
+
+            $storage = Storage::disk('public');
+            if ($storage->exists($report->bukti)) {
+                $storage->delete($report->bukti);
             }
 
-            $data = $request->only([
-                'user_id','lpr_sebagai', 'tgl_kejadian',
-                'kronologi','area_kejadian', 'bentuk_kekerasan', 'informasi_pelaku', 'informasi_korban'
-            ]);
-
-            if ($request->hasFile('bukti')) {
-                $storage = Storage::disk('public');
-
-                if ($storage->exists($report->bukti)) {
-                    $storage->delete($report->bukti);
-                }
-
-                $imageName = Str::random(32) . "." . $request->file('bukti')->getClientOriginalExtension();
-                $data['bukti'] = $imageName;
-
-                $storage->put($imageName, file_get_contents($request->file('bukti')));
-            }
-
-            $report->update($data);
-
-            return response()->json([
-                'message' => "Report successfully updated."
-            ], 200);
-        } catch (\Exception $e) {
-            return response()->json([
-                'message' => "Something went wrong WITH UPDATE!"
-            ], 500);
+            $data['bukti'] = $imageName;
         }
+
+        $report->update($data);
+
+        return response()->json([
+            'message' => "Report successfully updated."
+        ], 200);
+    } catch (\Exception $e) {
+        return response()->json([
+            'message' => "Something went wrong while updating report."
+        ], 500);
     }
+}
 
     public function destroy($id)
     {

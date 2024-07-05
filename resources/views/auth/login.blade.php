@@ -48,13 +48,3 @@
     </div>
 </x-guest-layout>
 
-<style>
-.flex-container {
-    display: flex;
-    justify-content: flex-end; /* Menempel ke kanan */
-    padding: 20px; /* Tambahkan padding jika diperlukan */
-}
-form {
-    width: 300px; /* Atur lebar form sesuai kebutuhan */
-}
-</style>
