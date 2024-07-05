@@ -100,7 +100,6 @@ class ApiAuthController extends Controller
             'status' => true,
             'message' => 'Profile Information',
             'data' => $userData,
-            'id' => $userData->id
         ], 200);
     }
 

@@ -3,14 +3,15 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\HomePenggunaController;
 use App\Http\Controllers\LaporanController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ProductPenggunaController;
-use App\Http\Controllers\ReportController;
+
  
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
  
 Route::get('/dashboard', function () {
@@ -28,8 +29,5 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
     Route::get('/laporan', [LaporanController::class, 'laporanindex'])->name('laporan.index');
     Route::get('/bacalaporan/{id}', [LaporanController::class, 'bacalaporanindex'])->name('bacalaporan.index');
- 
-
-   
 });
 require __DIR__.'/auth.php';
