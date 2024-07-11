@@ -17,9 +17,9 @@ Route::group([
     Route::post("logout", [ApiAuthController::class, "logout"]);
 
     // Report Routes
-    Route::get('/reports', [ApiReportController::class, 'index'])->name('reports.index');
+    Route::get('/history', [ApiReportController::class, 'index'])->name('history.index');
     Route::post('/reports', [ApiReportController::class, 'store'])->name('reports.store');
-    Route::get('/reports/{id}', [ApiReportController::class, 'show'])->name('reports.show');
+    Route::get('/history/{id}', [ApiReportController::class, 'show'])->name('history.show');
     Route::put('/reports/{id}', [ApiReportController::class, 'update'])->name('reports.update');
     Route::delete('/reports/{id}', [ApiReportController::class, 'destroy'])->name('reports.destroy');
 });

@@ -55,14 +55,16 @@
               <h3 class="card-title">Laporan</h3>
 
               <div class="card-tools">
-                <div class="input-group input-group-sm">
-                  <input type="text" class="form-control" placeholder="Search Mail">
-                  <div class="input-group-append">
-                    <div class="btn btn-primary">
-                      <i class="fas fa-search"></i>
-                    </div>
+                <form method="GET" action="{{ route('laporan.index') }}">
+                  <div class="input-group input-group-sm">
+                      <input type="text" name="table_search" class="form-control" placeholder="Search Mail" value="{{ request('table_search') }}">
+                      <div class="input-group-append">
+                          <button type="submit" class="btn btn-primary">
+                              <i class="fas fa-search"></i>
+                          </button>
+                      </div>
                   </div>
-                </div>
+                </form>
               </div>
               <!-- /.card-tools -->
             </div>
@@ -72,62 +74,85 @@
                 <!-- Check all button -->
                 <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="far fa-square"></i>
                 </button>
-                <div class="btn-group">
-                  <button type="button" class="btn btn-default btn-sm">
-                    <i class="far fa-trash-alt"></i>
-                  </button>
-                  <button type="button" class="btn btn-default btn-sm">
-                    <i class="fas fa-reply"></i>
-                  </button>
-                  <button type="button" class="btn btn-default btn-sm">
-                    <i class="fas fa-share"></i>
-                  </button>
-                </div>
-                <!-- /.btn-group -->
+                
+                <!-- btn pagination -->
                 <button type="button" class="btn btn-default btn-sm">
                   <i class="fas fa-sync-alt"></i>
                 </button>
                 <div class="float-right">
-                  1-50/200
+                  {{ $reports->firstItem() }}-{{ $reports->lastItem() }}/{{ $reports->total() }}
                   <div class="btn-group">
-                    <button type="button" class="btn btn-default btn-sm">
+                    <button type="button" class="btn btn-default btn-sm" {{ $reports->onFirstPage() ? 'disabled' : '' }} onclick="window.location.href='{{ $reports->previousPageUrl() }}'">
                       <i class="fas fa-chevron-left"></i>
                     </button>
-                    <button type="button" class="btn btn-default btn-sm">
+                    <button type="button" class="btn btn-default btn-sm" {{ $reports->hasMorePages() ? '' : 'disabled' }} onclick="window.location.href='{{ $reports->nextPageUrl() }}'">
                       <i class="fas fa-chevron-right"></i>
                     </button>
                   </div>
-                  <!-- /.btn-group -->
+                  <!-- btn pagination -->
                 </div>
                 <!-- /.float-right -->
               </div>
               <div class="table-responsive mailbox-messages">
                 <table class="table table-hover table-striped">
-                <tbody>
-    @forelse ($reports as $laporan)
-        <tr>
-            <td>
-                <div class="icheck-primary">
-                    <input type="checkbox" value="" id="check{{ $laporan->id }}">
-                    <label for="check{{ $laporan->id }}"></label>
-                </div>
-            </td>
-            <td class="mailbox-star">
-                <a href="{{ route('bacalaporan.index', ['id' => $laporan->id]) }}" class="btn btn-block btn-primary">Lihat</a>
-            </td>
-            <td class="mailbox-name"><a>{{ $laporan->user->name }}</a></td>
-            <td class="mailbox-subject">{{ $laporan->area_kejadian }}</td>
-            <td class="mailbox-subject">{{ $laporan->bentuk_kekerasan }}</td>
-            <td class="mailbox-subject">{{ $laporan->kronologi }}</td>
-            <td class="mailbox-date">{{ $laporan->created_at }}</td>
-        </tr>
-    @empty
-        <tr>
-            <td colspan="7">No reports found.</td>
-        </tr>
-    @endforelse
-</tbody>
+                  <tbody>
+                    @forelse ($reports as $laporan)
+                      <tr>
+                        <td>
+                          <div class="icheck-primary">
+                            <input type="checkbox" value="" id="check{{ $laporan->id }}">
+                            <label for="check{{ $laporan->id }}"></label>
+                          </div>
+                        </td>
+                        <td class="mailbox-star">
+                          <a href="{{ route('bacalaporan.index', ['id' => $laporan->id]) }}" class="btn btn-block btn-primary">Lihat</a>
+                          
+                          @if ($laporan->status === 'masuk')
+                            <a href="{{ route('laporan.proses', ['id' => $laporan->id]) }}" class="btn btn-block btn-warning">Proses</a>
+                          @elseif ($laporan->status === 'proses')
+                            <a href="#" class="btn btn-block btn-success" data-toggle="modal" data-target="#ketHasilModal{{ $laporan->id }}">Selesai</a>
+                          @endif
+                        </td>
+                        <td class="mailbox-name"><a>{{ $laporan->user->name }}</a></td>
+                        <td class="mailbox-subject">{{ $laporan->area_kejadian }}</td>
+                        <td class="mailbox-subject">{{ $laporan->bentuk_kekerasan }}</td>
+                        <td class="mailbox-subject">{{ $laporan->kronologi }}</td>
+                        <td class="mailbox-date">{{ $laporan->created_at }}</td>
+                      </tr>
 
+                      <!-- Modal -->
+                      <div class="modal fade" id="ketHasilModal{{ $laporan->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <form action="{{ route('laporan.selesai', $laporan->id) }}" method="POST">
+                              @csrf
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Isi Keterangan Hasil</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <div class="form-group">
+                                  <label for="ket_hasil">Keterangan Hasil</label>
+                                  <input type="text" class="form-control" id="ket_hasil" name="ket_hasil" required>
+                                </div>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Simpan</button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+
+                    @empty
+                      <tr>
+                        <td colspan="7">No reports found.</td>
+                      </tr>
+                    @endforelse
+                  </tbody>
                 </table>
                 <!-- /.table -->
               </div>
@@ -135,41 +160,33 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer p-0">
-              <div class="mailbox-controls">
-                <!-- Check all button -->
-                <button type="button" class="btn btn-default btn-sm checkbox-toggle">
-                  <i class="far fa-square"></i>
-                </button>
-                <div class="btn-group">
-                  <button type="button" class="btn btn-default btn-sm">
-                    <i class="far fa-trash-alt"></i>
+              <div class="card-body p-0">
+                <div class="mailbox-controls">
+                  <!-- Check all button -->
+                  <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="far fa-square"></i>
                   </button>
+                  
+                  <!-- btn pagination -->
                   <button type="button" class="btn btn-default btn-sm">
-                    <i class="fas fa-reply"></i>
+                    <i class="fas fa-sync-alt"></i>
                   </button>
-                  <button type="button" class="btn btn-default btn-sm">
-                    <i class="fas fa-share"></i>
-                  </button>
-                </div>
-                <!-- /.btn-group -->
-                <button type="button" class="btn btn-default btn-sm">
-                  <i class="fas fa-sync-alt"></i>
-                </button>
-                <div class="float-right">
-                  1-50/200
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-default btn-sm">
-                      <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button type="button" class="btn btn-default btn-sm">
-                      <i class="fas fa-chevron-right"></i>
-                    </button>
+                  <div class="float-right">
+                    {{ $reports->firstItem() }}-{{ $reports->lastItem() }}/{{ $reports->total() }}
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-default btn-sm" {{ $reports->onFirstPage() ? 'disabled' : '' }} onclick="window.location.href='{{ $reports->previousPageUrl() }}'">
+                        <i class="fas fa-chevron-left"></i>
+                      </button>
+                      <button type="button" class="btn btn-default btn-sm" {{ $reports->hasMorePages() ? '' : 'disabled' }} onclick="window.location.href='{{ $reports->nextPageUrl() }}'">
+                        <i class="fas fa-chevron-right"></i>
+                      </button>
+                    </div>
+                    <!-- btn pagination -->
                   </div>
-                  <!-- /.btn-group -->
+                  <!-- /.float-right -->
                 </div>
-                <!-- /.float-right -->
               </div>
             </div>
+            <!-- /.card-footer -->
           </div>
           <!-- /.card -->
         </div>
@@ -180,18 +197,8 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
-
-  <!-- Main Footer -->
-  @include('layouts.footer')
+  
 </div>
-<!-- ./wrapper -->
-
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
@@ -211,7 +218,6 @@
 <script src="plugins/jquery-mapael/maps/usa_states.min.js"></script>
 <!-- ChartJS -->
 <script src="plugins/chart.js/Chart.min.js"></script>
-
 
 </body>
 </html>

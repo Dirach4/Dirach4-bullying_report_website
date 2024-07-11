@@ -18,13 +18,12 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item menu-open">
-            <a href="{{ route('dashboard') }}" class="nav-link active">
+            <a href="{{ route('dashboard') }}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Dashboard
               </p>
             </a>
-            
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
@@ -36,13 +35,33 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('laporan.index') }}" class="nav-link">
+                <a href="{{ route('laporan.index', ['status' => 'masuk']) }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Laporan</p>
+                  <p>Masuk</p>
                 </a>
               </li>
-              
+              <li class="nav-item">
+                <a href="{{ route('laporan.index', ['status' => 'proses']) }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Proses</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('laporan.index', ['status' => 'selesai']) }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Selesai</p>
+                </a>
+              </li>
             </ul>
+
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('user') }}" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Pengguna
+              </p>
+            </a>
           </li>
           
         </ul>

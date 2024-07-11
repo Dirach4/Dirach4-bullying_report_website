@@ -19,6 +19,8 @@ class Report extends Model
         'informasi_pelaku',
         'informasi_korban',
         'bukti',
+        'status',
+        'ket_hasil',
     ];
     public function user(): BelongsTo
     {

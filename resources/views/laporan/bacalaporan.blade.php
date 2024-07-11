@@ -13,6 +13,102 @@
   <link rel="stylesheet" href="../../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+  <style>
+    .print-only {
+      display: none;
+    }
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #print-section, #print-section * {
+        visibility: visible;
+      }
+      #print-section {
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+      #print-section .print-only {
+        display: block;
+      }
+      #print-section img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+      }
+    }
+    /* The Modal (background) */
+    .modal {
+      display: none; 
+      position: fixed; 
+      z-index: 1; 
+      padding-top: 60px; 
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%; 
+      overflow: auto; 
+      background-color: rgb(0,0,0); 
+      background-color: rgba(0,0,0,0.4); 
+    }
+
+    /* Modal Content (image) */
+    .modal-content {
+      margin: auto;
+      display: block;
+      width: 80%;
+      max-width: 700px;
+    }
+
+    /* Caption of Modal Image */
+    .caption {
+      margin: auto;
+      display: block;
+      width: 80%;
+      max-width: 700px;
+      text-align: center;
+      color: #ccc;
+      padding: 10px 0;
+      height: 150px;
+    }
+
+    /* Add Animation - Zoom in the Modal */
+    .modal-content, .caption { 
+      -webkit-animation-name: zoom;
+      -webkit-animation-duration: 0.6s;
+      animation-name: zoom;
+      animation-duration: 0.6s;
+    }
+
+    @-webkit-keyframes zoom {
+      from {-webkit-transform: scale(0)} 
+      to {-webkit-transform: scale(1)}
+    }
+
+    @keyframes zoom {
+      from {transform: scale(0.1)} 
+      to {transform: scale(1)}
+    }
+
+    /* The Close Button */
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 35px;
+      color: #f1f1f1;
+      font-size: 40px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: #bbb;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed {{ session('theme', 'light-mode') }}">
 <div class="wrapper">
@@ -37,7 +133,6 @@
           <div class="col-sm-6">
             <h1>Compose</h1>
           </div>
-          
         </div>
       </div><!-- /.container-fluid -->
     </section>
@@ -70,21 +165,23 @@
             @csrf
               @method('PUT')
               
-                  <div class="mailbox-read-info">
+                  <div class="mailbox-read-info" id="print-section">
                     <h5>Informasi Pelapor</h5>
-                    <h6>Nama           : {{ optional($reports->user)->name }}<br>
-                      Sebagai          : {{ $reports->lpr_sebagai }}<br>
-                      Jurusan          : {{ optional($reports->user)->jurusan }}<br>
-                      Prodi            : {{ optional($reports->user)->prodi }}<br>
-                      Kelas            : {{ optional($reports->user)->kelas }}<br>
-                      Nomor Hp         : {{ optional($reports->user)->no_hp }}<br>
-                      Di Laporkan tgl  : {{ $reports->created_at }}<br>
-                      Identitas Pelaku : {{ $reports->informasi_pelaku }}<br>
-                      Identitas Korban : {{ $reports->informasi_korban }}<br>
-                      Area Kejadian    : {{ $reports->area_kejadian }}<br>
-                      Bentuk Kekerasan : {{ $reports->bentuk_kekerasan }}<br>
-                      Kronologi        : {{ $reports->kronologi }}<br>
-                      Tanggal Kejadian : {{ $reports->tgl_kejadian }}<br>
+                    <h6>Nama           : {{ optional($report->user)->name }}<br>
+                      Sebagai          : {{ $report->lpr_sebagai }}<br>
+                      Jurusan          : {{ optional($report->user)->jurusan }}<br>
+                      Prodi            : {{ optional($report->user)->prodi }}<br>
+                      Kelas            : {{ optional($report->user)->kelas }}<br>
+                      Nomor Hp         : {{ optional($report->user)->no_hp }}<br>
+                      Di Laporkan tgl  : {{ $report->created_at }}<br>
+                      Identitas Pelaku : {{ $report->informasi_pelaku }}<br>
+                      Identitas Korban : {{ $report->informasi_korban }}<br>
+                      Area Kejadian    : {{ $report->area_kejadian }}<br>
+                      Bentuk Kekerasan : {{ $report->bentuk_kekerasan }}<br>
+                      Kronologi        : {{ $report->kronologi }}<br>
+                      Tanggal Kejadian : {{ $report->tgl_kejadian }}<br>
+                      <br>
+                      <img src="{{ asset('storage/bukti/' . $report->bukti) }}" alt="Bukti Gambar" class="print-only" style="width: 100%; max-width: 500px; height: auto;">
                     </h6>
                   </div>
                   <!-- /.mailbox-read-message -->
@@ -92,13 +189,11 @@
                     <ul class="mailbox-attachments d-flex align-items-stretch clearfix">
                       <li>
                         <span class="mailbox-attachment-icon has-img">
-                          <img src="{{ asset('storage/bukti/' . $reports->bukti) }}" alt="Attachment">
+                          <img src="{{ asset('storage/bukti/' . $report->bukti) }}" alt="Attachment" id="bukti-gambar">
                         </span>
                         <div class="mailbox-attachment-info">
-                          <a href="#" class="mailbox-attachment-name"><i class="fas fa-camera"></i> $reports->bukti</a>
+                          <a href="#" class="mailbox-attachment-name" id="bukti-link"><i class="fas fa-camera"></i> {{$report->bukti}}</a>
                           <span class="mailbox-attachment-size clearfix mt-1">
-                            <span>2.67 MB</span>
-                            <a href="#" class="btn btn-default btn-sm float-right"><i class="fas fa-cloud-download-alt"></i></a>
                           </span>
                         </div>
                       </li>
@@ -108,7 +203,7 @@
                 
             <!-- /.card-footer -->
             <div class="card-footer">
-              <button type="button" class="btn btn-default"><i class="fas fa-print"></i> Print</button>
+              <button type="button" class="btn btn-default" onclick="window.print()"><i class="fas fa-print"></i> Print</button>
             </div>
             <!-- /.card-footer -->
           </div>
@@ -133,7 +228,11 @@
   @include('layouts.footer')
 </div>
 <!-- ./wrapper -->
-
+<div id="myModal" class="modal">
+  <span class="close">&times;</span>
+  <img class="modal-content" id="img01">
+  <div id="caption" class="caption"></div>
+</div>
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->
 <script src="../../plugins/jquery/jquery.min.js"></script>
@@ -153,5 +252,37 @@
 <script src="../../plugins/jquery-mapael/maps/usa_states.min.js"></script>
 <!-- ChartJS -->
 <script src="../../plugins/chart.js/Chart.min.js"></script>
+<script>
+  // Get the modal
+  var modal = document.getElementById("myModal");
+
+  // Get the image and insert it inside the modal - use its "alt" text as a caption
+  var img = document.getElementById("bukti-gambar");
+  var modalImg = document.getElementById("img01");
+  var captionText = document.getElementById("caption");
+  var link = document.getElementById("bukti-link");
+
+  link.onclick = function(event){
+    event.preventDefault();
+    modal.style.display = "block";
+    modalImg.src = img.src;
+    captionText.innerHTML = img.alt;
+  }
+
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
+
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() { 
+    modal.style.display = "none";
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+</script>
 </body>
 </html>
