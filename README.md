@@ -19,11 +19,11 @@ Android Studio (untuk pengembangan aplikasi Android)
 Instalasi
 Ikuti langkah-langkah berikut untuk menginstal dan menjalankan proyek ini:
 
-<h2>Backend (Laravel)</h2>
-![alt text](https://github.com/Dirach4/backend/blob/main/detaillaporan.png)
-![alt text](https://github.com/Dirach4/backend/edit/main/dashboard.png)
-![alt text](https://github.com/Dirach4/backend/edit/main/laporan.png)
-![alt text](https://github.com/Dirach4/backend/edit/main/detaillaporan.png)
+## Backend (Laravel)
+![Login](https://github.com/Dirach4/backend/blob/main/LOGIN.png)
+![Dashboard](https://github.com/Dirach4/backend/blob/main/dashboard.png)
+![Laporan](https://github.com/Dirach4/backend/blob/main/laporan.png)
+![Detail Laporan](https://github.com/Dirach4/backend/blob/main/detaillaporan.png)
 
 <h2>Lisensi</h2>
 Proyek ini dilisensikan di bawah lisensi MIT. Lihat file LICENSE untuk informasi lebih lanjut.
