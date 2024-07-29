@@ -1,66 +1,32 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+KELANA - Sistem Pelaporan, Penanganan, dan Monitoring Kekerasan Seksual & Bullying
+Deskripsi Proyek
+KELANA adalah sebuah sistem pelaporan berbasis web yang terintegrasi dengan aplikasi Android. Sistem ini dirancang untuk memudahkan pelaporan, penanganan, dan monitoring kasus kekerasan seksual dan bullying di Politeknik Negeri Semarang. Melalui API, aplikasi Android dapat berinteraksi dengan sistem web untuk melakukan berbagai fungsi terkait pelaporan dan penanganan kasus.
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Fitur Utama
+Pelaporan Kasus: Pengguna dapat melaporkan kasus kekerasan seksual dan bullying melalui aplikasi Android yang terhubung ke sistem web melalui API.
+Penanganan Kasus: Admin dapat mengelola laporan yang masuk, termasuk memverifikasi, menindaklanjuti, dan memberikan status pada setiap laporan.
+Monitoring Kasus: Sistem menyediakan fitur untuk memantau perkembangan setiap kasus yang dilaporkan.
+Notifikasi: Sistem mengirimkan notifikasi kepada pengguna terkait status laporan mereka.
+Autentikasi dan Otorisasi: Sistem dilengkapi dengan fitur autentikasi dan otorisasi untuk mengamankan data pengguna.
+Prasyarat
+Sebelum memulai, pastikan Anda memiliki prasyarat berikut:
 
-## About Laravel
+PHP >= 8.2
+Composer
+MySQL atau MariaDB
+Node.js & npm
+Android Studio (untuk pengembangan aplikasi Android)
+Instalasi
+Ikuti langkah-langkah berikut untuk menginstal dan menjalankan proyek ini:
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Backend (Laravel)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Contributing
+Kami menerima kontribusi dari siapa saja. Silakan lakukan fork pada repositori ini, buat branch dengan fitur atau perbaikan baru, dan kirim pull request untuk kami tinjau.
 
-## Learning Laravel
+Lisensi
+Proyek ini dilisensikan di bawah lisensi MIT. Lihat file LICENSE untuk informasi lebih lanjut.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Kontak
+Jika Anda memiliki pertanyaan atau masalah, silakan hubungi kami di [ashrahman411@gmail.com].
