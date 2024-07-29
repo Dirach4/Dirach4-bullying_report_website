@@ -1,8 +1,8 @@
-<span style="font-size: 24pt;">KELANA - Sistem Pelaporan, Penanganan, dan Monitoring Kekerasan Seksual & Bullying</span>
-<span style="font-size: 18pt;">Deskripsi Proyek</span>
+#KELANA - Sistem Pelaporan, Penanganan, dan Monitoring Kekerasan Seksual & Bullying
+##Deskripsi Proyek
 KELANA adalah sebuah sistem pelaporan berbasis web yang terintegrasi dengan aplikasi Android. Sistem ini dirancang untuk memudahkan pelaporan, penanganan, dan monitoring kasus kekerasan seksual dan bullying di Politeknik Negeri Semarang. Melalui API, aplikasi Android dapat berinteraksi dengan sistem web untuk melakukan berbagai fungsi terkait pelaporan dan penanganan kasus.
 
-<span style="font-size: 18pt;">Fitur Utama</span>
+##Fitur Utama
 Pelaporan Kasus: Pengguna dapat melaporkan kasus kekerasan seksual dan bullying melalui aplikasi Android yang terhubung ke sistem web melalui API.
 Penanganan Kasus: Admin dapat mengelola laporan yang masuk, termasuk memverifikasi, menindaklanjuti, dan memberikan status pada setiap laporan.
 Monitoring Kasus: Sistem menyediakan fitur untuk memantau perkembangan setiap kasus yang dilaporkan.
@@ -19,14 +19,14 @@ Android Studio (untuk pengembangan aplikasi Android)
 Instalasi
 Ikuti langkah-langkah berikut untuk menginstal dan menjalankan proyek ini:
 
-<span style="font-size: 18pt;">Backend (Laravel)</span>
-![alt text](https://github.com/Dirach4/backend/edit/main/LOGIN.png?raw=true)
-![alt text](https://github.com/Dirach4/backend/edit/main/dashboard.png?raw=true)
-![alt text](https://github.com/Dirach4/backend/edit/main/laporan.png?raw=true)
-![alt text](https://github.com/Dirach4/backend/edit/main/detaillaporan.png?raw=true)
+##Backend (Laravel)
+![alt text](https://github.com/Dirach4/backend/edit/main/LOGIN.png)
+![alt text](https://github.com/Dirach4/backend/edit/main/dashboard.png)
+![alt text](https://github.com/Dirach4/backend/edit/main/laporan.png)
+![alt text](https://github.com/Dirach4/backend/edit/main/detaillaporan.png)
 
-<span style="font-size: 18pt;">Lisensi</span>
+##Lisensi
 Proyek ini dilisensikan di bawah lisensi MIT. Lihat file LICENSE untuk informasi lebih lanjut.
 
-<span style="font-size: 18pt;">Kontak</span>
+##Kontak
 Jika Anda memiliki pertanyaan atau masalah, silakan hubungi kami di [ashrahman411@gmail.com].
