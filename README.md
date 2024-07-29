@@ -20,7 +20,7 @@ Instalasi
 Ikuti langkah-langkah berikut untuk menginstal dan menjalankan proyek ini:
 
 <h2>Backend (Laravel)</h2>
-![alt text](https://github.com/Dirach4/backend/blob/main/dashboard.png?raw=true)
+![alt text](https://github.com/Dirach4/backend/blob/main/detaillaporan.png?raw=true)
 ![alt text](https://github.com/Dirach4/backend/edit/main/dashboard.png)
 ![alt text](https://github.com/Dirach4/backend/edit/main/laporan.png)
 ![alt text](https://github.com/Dirach4/backend/edit/main/detaillaporan.png)
